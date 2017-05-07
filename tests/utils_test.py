@@ -17,9 +17,15 @@
 # along with CimCity.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-from houses.items import PhysicalObject
+from unittest import TestCase
+
+from houses import utils
 
 
-class Person(PhysicalObject):
-    def __init__(self, name):
-        self.name = name
+class UtilsTestCase(TestCase):
+    def test_is_two_int_tuple(self):
+        self.assertEqual(utils.is_two_int_tuple((0, 1)), True)
+        self.assertEqual(utils.is_two_int_tuple((0,)), False)
+        self.assertEqual(utils.is_two_int_tuple([0, 1]), False)
+        self.assertEqual(utils.is_two_int_tuple(("", "")), False)
+        self.assertEqual(utils.is_two_int_tuple((1.0, 2.0)), False)

@@ -17,9 +17,16 @@
 # along with CimCity.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-from houses.items import PhysicalObject
+from unittest import TestCase
+
+from houses import person
 
 
-class Person(PhysicalObject):
-    def __init__(self, name):
-        self.name = name
+class PersonTestCase(TestCase):
+    def test_init(self):
+        p = person.Person(name="Bob")
+
+        self.assertEqual(p.name, "Bob")
+        self.assertEqual(p.can_be_on(p), False)
+        self.assertEqual(p.can_have_on(p), False)
+        self.assertEqual(p.can_be_on(None), True)
