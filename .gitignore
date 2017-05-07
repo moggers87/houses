@@ -1,0 +1,14 @@
+*.py[cod]
+*__pycache__*
+.*.swp
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+sdist
+
+# Unit test / coverage reports
+.coverage
