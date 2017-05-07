@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(
-    name="Houses",
-    description="A game of houses",
-    long_description="A game of houses",
+    name="The Houses",
+    description="A virtual doll house and life simulator.",
+    long_description="A virtual doll house and life simulator.",
     author="Matt Molyneaux",
     license="GPLv3+",
     packages=['houses'],
