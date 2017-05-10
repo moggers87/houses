@@ -91,9 +91,3 @@ class ThingsInHouse(object):
             raise TypeError("key must be a tuple of two ints")
 
         return key in self._objects
-
-    def items(self):
-        return self._objects.items()
-
-    def iteritems(self):
-        return self._objects.iteritems()

@@ -41,6 +41,10 @@ class Simulator(object):
     def __init__(self, houses):
         self.houses = houses
 
+    def step(self):
+        for house in self.houses:
+            yield house.step()
+
     @classmethod
     def from_dict(cls, data):
         """
