@@ -79,10 +79,11 @@ class ThingsInHouse(object):
             raise KeyError("Out of bounds")
 
         items = self._objects[key]
-        if len(items) == 1:
-            del self._objects[key]
-        elif items[-1] == item:
-            items.pop()
+        if items[-1] is item:
+            if len(items) <= 1:
+                del self._objects[key]
+            else:
+                items.pop()
         else:
             raise ValueError("%s was not removable" % item)
 

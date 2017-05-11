@@ -47,12 +47,52 @@ class ThingsInHouseTestCase(TestCase):
 
         self.things._objects[(1, 1)] = ["thing"]
         self.assertEqual(self.things[(1, 1)], ["thing"])
+        self.assertEqual(self.things.get((1, 1)), ["thing"])
 
     def test_add(self):
-        pass
+        obj = PhysicalObject()
+        self.things.add((1, 1), obj)
+
+        self.assertEqual(self.things.get((1, 1)), [obj])
+
+        # will error because PhysicalObjects can't sit on top of eachother
+        with self.assertRaises(KeyError):
+            self.things.add((1, 1), obj)
+
+        # out of bounds
+        with self.assertRaises(KeyError):
+            self.things.add((200, 200), obj)
 
     def test_remove(self):
-        pass
+        obj = PhysicalObject()
+        obj2 = PhysicalObject()
+
+        with self.assertRaises(KeyError):
+            self.things.remove((1, 1), obj)
+
+        self.things.add((1, 1), obj)
+        with self.assertRaises(ValueError):
+            self.things.remove((1, 1), obj2)
+
+        self.things._objects[(1, 1)].append(obj2)
+        with self.assertRaises(ValueError):
+            self.things.remove((1, 1), obj)
+
+        self.things.remove((1, 1), obj2)
+        self.assertEqual(self.things[(1, 1)], [obj])
+
+        self.things.remove((1, 1), obj)
+        with self.assertRaises(KeyError):
+            self.things[(1, 1)]
 
     def test_magic_contains(self):
-        pass
+        self.assertFalse((1, 1) in self.things)
+
+        with self.assertRaises(TypeError):
+            PhysicalObject() in self.things
+
+        self.things.add((1, 1), PhysicalObject())
+        self.assertTrue((1, 1) in self.things)
+
+        with self.assertRaises(TypeError):
+            PhysicalObject() in self.things
