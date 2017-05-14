@@ -49,11 +49,20 @@ class ThingsInHouseTestCase(TestCase):
         self.assertEqual(self.things[(1, 1)], ["thing"])
         self.assertEqual(self.things.get((1, 1)), ["thing"])
 
+        with self.assertRaises(TypeError):
+            self.things.get(None)
+
+        with self.assertRaises(TypeError):
+            self.things[None]
+
     def test_add(self):
         obj = PhysicalObject()
         self.things.add((1, 1), obj)
 
         self.assertEqual(self.things.get((1, 1)), [obj])
+
+        with self.assertRaises(TypeError):
+            self.things.add(None, obj)
 
         # will error because PhysicalObjects can't sit on top of eachother
         with self.assertRaises(KeyError):
@@ -66,6 +75,9 @@ class ThingsInHouseTestCase(TestCase):
     def test_remove(self):
         obj = PhysicalObject()
         obj2 = PhysicalObject()
+
+        with self.assertRaises(TypeError):
+            self.things.remove(None, obj)
 
         with self.assertRaises(KeyError):
             self.things.remove((1, 1), obj)
@@ -84,6 +96,9 @@ class ThingsInHouseTestCase(TestCase):
         self.things.remove((1, 1), obj)
         with self.assertRaises(KeyError):
             self.things[(1, 1)]
+
+        with self.assertRaises(KeyError):
+            self.things.remove((100000, 10000000), obj)
 
     def test_magic_contains(self):
         self.assertFalse((1, 1) in self.things)

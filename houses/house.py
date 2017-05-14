@@ -65,7 +65,7 @@ class ThingsInHouse(object):
 
         if key in self._objects:
             top_item = self._objects[key][-1]
-            if top_item.can_have_on(item) and item.can_be_on(top_item) and self.house.check_empty(key, exclude=[self]):
+            if top_item.can_have_on(item) and item.can_be_on(top_item):
                 self._objects[key].append(item)
             else:
                 raise KeyError("Something already here")
