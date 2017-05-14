@@ -12,3 +12,4 @@ sdist
 
 # Unit test / coverage reports
 .coverage
+htmlcov
