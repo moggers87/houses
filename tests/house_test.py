@@ -61,16 +61,19 @@ class ThingsInHouseTestCase(TestCase):
 
         self.assertEqual(self.things.get((1, 1)), [obj])
 
+        with self.assertRaises(ValueError):
+            self.things.add((1, 1), obj)
+
         with self.assertRaises(TypeError):
-            self.things.add(None, obj)
+            self.things.add(None, PhysicalObject())
 
         # will error because PhysicalObjects can't sit on top of eachother
         with self.assertRaises(KeyError):
-            self.things.add((1, 1), obj)
+            self.things.add((1, 1), PhysicalObject())
 
         # out of bounds
         with self.assertRaises(KeyError):
-            self.things.add((200, 200), obj)
+            self.things.add((200, 200), PhysicalObject())
 
     def test_remove(self):
         obj = PhysicalObject()

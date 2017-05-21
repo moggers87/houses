@@ -64,6 +64,9 @@ class ThingsInHouse(object):
             raise KeyError("Out of bounds")
 
         if key in self._objects:
+            if item in self._objects[key]:
+                raise ValueError("This item is already at this place")
+
             top_item = self._objects[key][-1]
             if top_item.can_have_on(item) and item.can_be_on(top_item):
                 self._objects[key].append(item)
